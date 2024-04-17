@@ -8,28 +8,22 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('config_payment', function (Blueprint $table) {
             $table->id();
+            $table->string('fee');
+            $table->string('vat');
             $table->timestamps();
-            $table->id(); 
-            $table->string('fee'); 
-            $table->string('vat'); 
-            $table->timestamps(); 
-            $table->softdeletes();
+            $table->softdeletes(); 
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('config_payment');
     }

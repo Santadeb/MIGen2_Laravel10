@@ -8,28 +8,22 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('role_user', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->index('fk_role_user_to_users');
+            $table->foreignId('role_id')->nullable()->index('fk_role_user_to_role');
             $table->timestamps();
-            $table->id(); 
-            $table->integer('user_id'); 
-            $table->integer('role_id'); 
-            $table->timestamps(); 
             $table->softdeletes();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('role_user');
     }

@@ -8,28 +8,23 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('specialist', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique();
+            $table->string('price');
             $table->timestamps();
-            $table->id(); 
-            $table->string('name')->unique(); 
-            $table->string('price'); 
-            $table->timestamps(); 
-            $table->softdeletes();
+            $table->softdeletes(); 
+            
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('specialist');
     }

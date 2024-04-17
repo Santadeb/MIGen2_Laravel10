@@ -8,33 +8,28 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('appointment', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('doctor_id')->nullable()->index('fk_appointment_to_doctor');
+            $table->foreignId('user_id')->nullable()->index('fk_appointment_to_users');
+            $table->foreignId('consultation_id')->nullable()->index('fk_appointment_to_consultation');
+            $table->enum('level', [1, 2, 3]);
+            $table->date('date')->nullable();
+            $table->time('time')->nullable();
+            $table->enum('status', [1, 2]);
             $table->timestamps();
-            $table->id(); 
-            $table->integer('doctor_id'); 
-            $table->integer('user_id'); 
-            $table->integer('consultation_id'); 
-            $table->enum('level', [1,2,3]); 
-            $table->date('date')->nullable(); 
-            $table->time('time')->nullable(); 
-            $table->enum('status',[1,2]);
-            $table->timestamps(); 
-            $table->softdeletes();
+            $table->softDeletes(); 
+            
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('appointment');
     }

@@ -8,34 +8,27 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('transaction', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('appointment_id')->nullable()->index('fk_transaction_to_appointment');
+            $table->string('fee_doctor')->nullable();
+            $table->string('fee_specialist')->nullable();
+            $table->string('fee_hospital')->nullable();
+            $table->string('sub_total')->nullable();
+            $table->string('vat')->nullable();
+            $table->string('total')->nullable();
             $table->timestamps();
-            
-            $table->id(); 
-            $table->integer('appointment_id'); 
-            $table->string('fee_doctor')->nullable(); 
-            $table->string('fee_specialist')->nullable(); 
-            $table->string('fee_hospital')->nullable(); 
-            $table->string('sub_total')->nullable(); 
-            $table->string('vat')->nullable(); 
-            $table->string('total')->nullable(); 
-            $table->timestamps(); 
-            $table->softdeletes();
+            $table->softDeletes(); 
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('transaction');
     }
